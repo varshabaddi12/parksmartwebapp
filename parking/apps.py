@@ -2,7 +2,7 @@ from django.apps import AppConfig
 
 class parksmartwebappConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'parksmartwebapp'
+    name = 'parking'
 
     def ready(self):
         # This function runs as soon as Django starts
