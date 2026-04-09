@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f8fafc] flex items-center justify-center min-h-screen p-6">
+    <div class="bg-white w-full max-w-sm rounded-[40px] p-10 shadow-xl border border-slate-100">
+        
+        <div class="text-center mb-10">
+            <h2 class="text-[#013061] text-2xl font-black uppercase tracking-tighter">Slot: {{ slot.slot_number }}</h2>
+            <p class="text-slate-400 text-[10px] uppercase font-bold mt-1">Enter vehicle details to confirm booking</p>
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="space-y-5 mb-10">
+                <div>
+                    <label class="text-[10px] font-bold text-slate-400 ml-2">FULL NAME</label>
+                    <input type="text" name="full_name" placeholder="Enter Name" required class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 px-5 text-xs outline-none focus:ring-2 focus:ring-[#013061]">
+                </div>
+
+                <div>
+                    <label class="text-[10px] font-bold text-slate-400 ml-2">VEHICLE NUMBER</label>
+                    <input type="text" name="vehicle_number" placeholder="KA-25-XX-0000" required class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 px-5 text-xs outline-none focus:ring-2 focus:ring-[#013061]">
+                </div>
+
+                <div>
+                    <label class="text-[10px] font-bold text-slate-400 ml-2">VEHICLE TYPE</label>
+                    <select name="vehicle_type" required class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 px-5 text-xs outline-none focus:ring-2 focus:ring-[#013061] appearance-none">
+                        <option value="{{ slot.slot_type }}" selected>{{ slot.slot_type|capfirst }}</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="text-[10px] font-bold text-slate-400 ml-2">DURATION (HOURS)</label>
+                    <input type="number" name="duration" value="1" min="1" required class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 px-5 text-xs outline-none focus:ring-2 focus:ring-[#013061]">
+                </div>
+            </div>
+
+            <button type="submit" class="w-full bg-[#046D39] text-white py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-all shadow-lg">
+                Confirm & Download Ticket
+            </button>
+            <a href="{% url 'dashboard' %}" class="block text-center mt-6 text-[10px] text-slate-400 hover:text-slate-600 font-bold uppercase underline décoration-2">Back to Dashboard</a>
+        </form>
+    </div>
+</body>
+</html>

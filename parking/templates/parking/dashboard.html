@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><script src="https://cdn.tailwindcss.com"></script></head>
+<body class="bg-[#f8fafc] min-h-screen">
+    <div class="bg-[#013061] p-4 sticky top-0 z-50 shadow-lg text-white">
+        <div class="max-w-4xl mx-auto flex justify-between items-center px-4">
+            <div class="flex items-center gap-2">
+                <a href="{% url 'dashboard' %}" class="bg-[#046D39] text-white px-2 py-0.5 rounded font-black text-xs shadow-md">D</a>
+                <h1 class="font-bold text-[10px] uppercase">DMart Parking</h1>
+            </div>
+            <div class="flex gap-4 text-[10px] font-bold">
+                <span class="text-green-400">● FREE: {{ available }}</span>
+                <span class="text-red-400">● BUSY: {{ reserved }}</span>
+            </div>
+            <a href="{% url 'welcome' %}" class="text-[9px] border border-white/30 px-3 py-1 rounded-full uppercase font-bold">Logout</a>
+        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto p-6">
+        {% if not v_type %}
+        <h2 class="text-center text-slate-400 font-black text-[10px] uppercase tracking-[0.3em] mb-10">Select Vehicle Category</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <a href="?type=4-wheeler" class="bg-white p-10 rounded-[40px] shadow-sm border border-slate-100 text-center hover:scale-105 transition-all">
+                <div class="text-5xl mb-4">🚗</div>
+                <div class="font-black text-[#046D39] uppercase text-sm">4-Wheeler</div>
+                <div class="text-[10px] text-slate-400 mt-2 font-bold uppercase">Car / SUV</div>
+            </a>
+            <a href="?type=2-wheeler" class="bg-white p-10 rounded-[40px] shadow-sm border border-slate-100 text-center hover:scale-105 transition-all">
+                <div class="text-5xl mb-4">🏍️</div>
+                <div class="font-black text-[#046D39] uppercase text-sm">2-Wheeler</div>
+                <div class="text-[10px] text-slate-400 mt-2 font-bold uppercase">Bike / Scooter</div>
+            </a>
+            <a href="?type=3-wheeler" class="bg-white p-10 rounded-[40px] shadow-sm border border-slate-100 text-center hover:scale-105 transition-all">
+                <div class="text-5xl mb-4">🛺</div>
+                <div class="font-black text-[#046D39] uppercase text-sm">3-Wheeler</div>
+                <div class="text-[10px] text-slate-400 mt-2 font-bold uppercase">Auto Rickshaw</div>
+            </a>
+        </div>
+        {% else %}
+        <div class="mb-8 flex items-center justify-between">
+            <a href="{% url 'dashboard' %}" class="text-[10px] font-black text-[#046D39] uppercase tracking-widest bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-100 hover:bg-slate-50">⬅ Back</a>
+            <h2 class="text-[11px] font-black text-slate-500 uppercase tracking-widest">{{ v_type }} Zone</h2>
+        </div>
+        <div class="grid grid-cols-5 sm:grid-cols-10 gap-2 bg-white p-6 rounded-[40px] shadow-sm border border-slate-100">
+            {% for slot in slots %}
+                {% if slot.is_occupied %}
+                    <div class="aspect-square rounded-2xl flex flex-col items-center justify-center bg-slate-100 text-slate-300 border border-slate-200">
+                        <span class="text-[8px] font-bold uppercase">{{ slot.slot_number }}</span>
+                    </div>
+                {% else %}
+                    <a href="{% url 'booking' slot.id %}" class="aspect-square rounded-2xl flex flex-col items-center justify-center bg-[#046D39] text-white hover:bg-green-700 transition-all shadow-md">
+                        <span class="text-[10px]">🅿️</span>
+                        <span class="text-[8px] font-bold uppercase">{{ slot.slot_number }}</span>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

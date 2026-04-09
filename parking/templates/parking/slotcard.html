@@ -1,0 +1,12 @@
+{% if slot.is_occupied %}
+    <div class="aspect-square rounded-xl flex flex-col items-center justify-center bg-slate-100 text-slate-300 border border-slate-200 opacity-60">
+        <span class="text-[10px]">🚫</span>
+        <span class="text-[8px] font-bold">{{ slot.slot_number }}</span>
+    </div>
+{% else %}
+    <a href="{% url 'booking' slot.id %}" 
+       class="aspect-square rounded-xl flex flex-col items-center justify-center bg-[#046D39] text-white shadow-sm hover:scale-110 active:scale-95 transition-all">
+        <span class="text-[10px]">{{ emoji }}</span>
+        <span class="text-[8px] font-bold uppercase">{{ slot.slot_number }}</span>
+    </a>
+{% endif %}
